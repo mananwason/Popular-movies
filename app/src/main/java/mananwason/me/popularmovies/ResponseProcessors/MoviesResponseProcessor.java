@@ -1,4 +1,4 @@
-package mananwason.me.popularmovies;
+package mananwason.me.popularmovies.ResponseProcessors;
 
 import android.util.Log;
 
