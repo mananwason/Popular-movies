@@ -9,4 +9,5 @@ public class Strings {
     public static final String API_KEY = "0bfd9f4df9bf34d079eed9ee9df58678";
 
     public static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
+    public static final String INTENT_MOVIE_NAME = "movie_name";
 }

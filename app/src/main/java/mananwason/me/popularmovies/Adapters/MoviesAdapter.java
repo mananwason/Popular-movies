@@ -1,5 +1,6 @@
 package mananwason.me.popularmovies.Adapters;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import mananwason.me.popularmovies.Activities.MovieDetailActivity;
 import mananwason.me.popularmovies.Models.Movie;
 import mananwason.me.popularmovies.R;
 import mananwason.me.popularmovies.Utils.Strings;
@@ -38,9 +40,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Uri uri = Uri.parse(Strings.IMAGE_BASE_URL + movies.get(position).getPoster_path());
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        Uri uri = Uri.parse(movies.get(position).getPoster_path());
         Picasso.with(holder.poster.getContext()).load(uri).placeholder(R.drawable.ic_perm_identity_black_24dp).into(holder.poster);
+        holder.poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.poster.getContext(), MovieDetailActivity.class);
+                intent.putExtra(Strings.INTENT_MOVIE_NAME, movies.get(position));
+                holder.poster.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

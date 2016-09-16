@@ -1,9 +1,13 @@
 package mananwason.me.popularmovies.Models;
 
+import java.io.Serializable;
+
+import mananwason.me.popularmovies.Utils.Strings;
+
 /**
  * Created by Manan Wason on 12/09/16.
  */
-public class Movie {
+public class Movie implements Serializable {
     String poster_path;
     Boolean adult;
     String release_date;
@@ -14,9 +18,10 @@ public class Movie {
     Double popularity;
     int vote_count;
     Boolean video;
-    Double vote_average;
+    double vote_average;
+    String overview;
 
-    public Movie(String poster_path, Boolean adult, String release_date, String original_title, String original_language, String title, String backdrop_path, Double popularity, int vote_count, Boolean video, Double vote_average) {
+    public Movie(String poster_path, Boolean adult, String release_date, String original_title, String original_language, String title, String backdrop_path, Double popularity, int vote_count, Boolean video, double vote_average, String overview) {
         this.poster_path = poster_path;
         this.adult = adult;
         this.release_date = release_date;
@@ -30,8 +35,16 @@ public class Movie {
         this.vote_average = vote_average;
     }
 
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
     public String getPoster_path() {
-        return poster_path;
+        return Strings.IMAGE_BASE_URL + poster_path;
     }
 
     public void setPoster_path(String poster_path) {
@@ -79,7 +92,7 @@ public class Movie {
     }
 
     public String getBackdrop_path() {
-        return backdrop_path;
+        return Strings.IMAGE_BASE_URL + backdrop_path;
     }
 
     public void setBackdrop_path(String backdrop_path) {
@@ -110,11 +123,11 @@ public class Movie {
         this.video = video;
     }
 
-    public Double getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(Double vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 }
