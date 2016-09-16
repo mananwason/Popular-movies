@@ -6,3 +6,4 @@
 /captures
 **/.idea/**
 
+/app/src/main/java/mananwason/me/popularmovies/Utils/ApiKey.java

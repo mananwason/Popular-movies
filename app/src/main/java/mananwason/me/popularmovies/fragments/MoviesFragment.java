@@ -21,7 +21,7 @@ import mananwason.me.popularmovies.BusEvents.MoviesDownloadEvent;
 import mananwason.me.popularmovies.Models.Movie;
 import mananwason.me.popularmovies.PopularMoviesApp;
 import mananwason.me.popularmovies.R;
-import mananwason.me.popularmovies.Utils.Strings;
+import mananwason.me.popularmovies.Utils.ApiKey;
 import mananwason.me.popularmovies.api.APIClient;
 import mananwason.me.popularmovies.api.MoviesListProcessor;
 
@@ -46,7 +46,7 @@ public class MoviesFragment extends Fragment {
         moviesRecyclerView.setAdapter(moviesAdapter);
 
         APIClient apiClient = new APIClient();
-        apiClient.getMoviesAPI().getPopularMovies(Strings.API_KEY).enqueue(new MoviesListProcessor());
+        apiClient.getMoviesAPI().getPopularMovies(ApiKey.API_KEY).enqueue(new MoviesListProcessor());
 
 
         return view;
@@ -79,11 +79,11 @@ public class MoviesFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.sort_popular:
-                new APIClient().getMoviesAPI().getPopularMovies(Strings.API_KEY).enqueue(new MoviesListProcessor());
+                new APIClient().getMoviesAPI().getPopularMovies(ApiKey.API_KEY).enqueue(new MoviesListProcessor());
                 break;
 
             case R.id.sort_top:
-                new APIClient().getMoviesAPI().getTopMovies(Strings.API_KEY).enqueue(new MoviesListProcessor());
+                new APIClient().getMoviesAPI().getTopMovies(ApiKey.API_KEY).enqueue(new MoviesListProcessor());
                 break;
 
         }
