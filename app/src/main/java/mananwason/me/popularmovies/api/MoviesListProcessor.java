@@ -1,7 +1,5 @@
 package mananwason.me.popularmovies.api;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import mananwason.me.popularmovies.BusEvents.MoviesDownloadEvent;
@@ -25,7 +23,6 @@ public class MoviesListProcessor implements Callback<parseExtras> {
             resultMovies = response.body().getResults();
             moviesDownloadEvent.setDownloadDone(true);
             moviesDownloadEvent.setMovieResults(resultMovies);
-            Log.d("ABC",resultMovies.size()+"");
             PopularMoviesApp.postEventOnUIThread(new MoviesDownloadEvent(true, resultMovies));
 
         }

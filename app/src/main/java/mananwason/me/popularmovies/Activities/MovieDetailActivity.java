@@ -24,6 +24,8 @@ import mananwason.me.popularmovies.Utils.Strings;
  * Created by Manan Wason on 16/09/16.
  */
 public class MovieDetailActivity extends AppCompatActivity {
+    private Movie movie;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +37,27 @@ public class MovieDetailActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.title);
         TextView relaseDate = (TextView) findViewById(R.id.release_date);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        Movie movie = (Movie) getIntent().getSerializableExtra(Strings.INTENT_MOVIE_NAME);
-
+        if (getIntent().getExtras() != null) {
+            movie = (Movie) getIntent().getSerializableExtra(Strings.INTENT_MOVIE_NAME);
+        }
         Picasso.with(this).load(movie.getBackdrop_path()).error(R.drawable.ic_filter_list_white_24dp).into(movieImage);
         synopsis.setText(movie.getOverview());
         title.setText(movie.getTitle());
         ratingBar.setRating((float) movie.getVote_average());
-
         relaseDate.setText(getFormattedDate(movie.getRelease_date()));
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(Strings.INTENT_MOVIE_NAME, movie);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        movie = (Movie) savedInstanceState.getSerializable(Strings.INTENT_MOVIE_NAME);
 
     }
 
