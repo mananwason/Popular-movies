@@ -1,6 +1,12 @@
 package mananwason.me.popularmovies.Models;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import mananwason.me.popularmovies.Utils.Strings;
 
@@ -129,5 +135,22 @@ public class Movie implements Serializable {
 
     public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
+    }
+
+    public String getFormattedDate(String rawDate) {
+        SimpleDateFormat rawFormat = new SimpleDateFormat("yyyy-dd-MM");
+        rawFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date = null;
+        try {
+            date = rawFormat.parse(rawDate);
+        } catch (ParseException e) {
+            Log.d("Error", e.toString());
+        }
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return dateFormat.format(date);
+
     }
 }

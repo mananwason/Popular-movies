@@ -1,4 +1,4 @@
-package mananwason.me.popularmovies.api;
+package mananwason.me.popularmovies.ResponseProcessors;
 
 import java.util.ArrayList;
 

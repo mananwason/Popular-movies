@@ -23,7 +23,7 @@ import mananwason.me.popularmovies.PopularMoviesApp;
 import mananwason.me.popularmovies.R;
 import mananwason.me.popularmovies.Utils.ApiKey;
 import mananwason.me.popularmovies.api.APIClient;
-import mananwason.me.popularmovies.api.MoviesListProcessor;
+import mananwason.me.popularmovies.ResponseProcessors.MoviesListProcessor;
 
 /**
  * Created by Manan Wason on 14/09/16.
