@@ -12,9 +12,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,14 +26,16 @@ import mananwason.me.popularmovies.BusEvents.MoviesDownloadEvent;
 import mananwason.me.popularmovies.Models.Movie;
 import mananwason.me.popularmovies.PopularMoviesApp;
 import mananwason.me.popularmovies.R;
-import mananwason.me.popularmovies.Utils.ApiKey;
-import mananwason.me.popularmovies.api.APIClient;
 import mananwason.me.popularmovies.ResponseProcessors.MoviesListProcessor;
+import mananwason.me.popularmovies.Utils.ApiKey;
+import mananwason.me.popularmovies.Utils.Strings;
+import mananwason.me.popularmovies.api.APIClient;
 
 /**
- * Created by Manan Wason on 14/09/16.
+ * Created by mananwason on 7/14/17.
  */
-public class MoviesFragment extends Fragment {
+
+public class DetailsFragment extends Fragment {
     RecyclerView moviesRecyclerView;
     MoviesAdapter moviesAdapter;
     ArrayList<Movie> movies;
@@ -41,28 +46,19 @@ public class MoviesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View view = inflater.inflate(R.layout.fragment_movies, container, false);
-        mDualPane = getResources().getBoolean(R.bool.twoPaneMode);
-        Log.d("TAG","NO");
-        if (savedInstanceState != null) {
-            // Restore last state for checked position.
-            mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
-        }
+        View view = inflater.inflate(R.layout.fragment_movies_detail, container, false);
+        ImageView movieImage = (ImageView) view.findViewById(R.id.movie_poster_image);
+        TextView synopsis = (TextView) view.findViewById(R.id.synopsis);
+        TextView title = (TextView) view.findViewById(R.id.title);
+        TextView relaseDate = (TextView) view.findViewById(R.id.release_date);
+        RatingBar ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
 
-
-        movies = new ArrayList<>();
-        PopularMoviesApp.getEventBus().register(this);
-        moviesRecyclerView = (RecyclerView) view.findViewById(R.id.list_movies);
-        moviesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        moviesAdapter = new MoviesAdapter(movies);
-        moviesRecyclerView.setAdapter(moviesAdapter);
-
-        APIClient apiClient = new APIClient();
-        apiClient.getMoviesAPI().getPopularMovies(ApiKey.API_KEY).enqueue(new MoviesListProcessor());
-        if (mDualPane) {
-            // In dual-pane mode, the list view highlights the selected item.
-            Log.d("TAG", "ASDA");
-        }
+        Movie movie = (Movie) getArguments().getSerializable(Strings.INTENT_MOVIE_NAME);
+        Picasso.with(view.getContext()).load(movie.getBackdrop_path()).error(R.drawable.ic_filter_list_white_24dp).into(movieImage);
+        synopsis.setText(movie.getOverview());
+        title.setText(movie.getTitle());
+        ratingBar.setRating((float) movie.getVote_average());
+        relaseDate.setText(movie.getFormattedDate(movie.getRelease_date()));
 
 
         return view;
@@ -105,5 +101,5 @@ public class MoviesFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
+

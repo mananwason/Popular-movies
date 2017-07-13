@@ -25,7 +25,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_movies_detail);
+        setContentView(R.layout.fragment_movies_detail);
         ImageView movieImage = (ImageView) findViewById(R.id.movie_poster_image);
         TextView synopsis = (TextView) findViewById(R.id.synopsis);
         TextView title = (TextView) findViewById(R.id.title);
